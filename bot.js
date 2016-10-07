@@ -45,7 +45,7 @@ function postMessage(name, good, give) {
     } else {
       numCookies = "all of"
     }
-    botResponse = "*Taking " + numCookies + " " + name + "'s cookies away'";
+    botResponse = "*Taking " + numCookies + " " + name + "'s cookies away*";
   }
 
 
