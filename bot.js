@@ -7,10 +7,13 @@ function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex = /^\/give cookie to /;
 
+  good = false;
+
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
-    postMessage(request.text.substr(16));
+    postMessage(request.text.substr(16), good);
     this.res.end();
+    good = !good;
   } else {
     console.log("don't care");
     this.res.writeHead(200);
@@ -18,10 +21,15 @@ function respond() {
   }
 }
 
-function postMessage(name) {
-  var botResponse, options, body, botReq;
+function postMessage(name, good) {
+  var botResponse, options, body, botReq, cookieType;
 
-  botResponse = "*Giving " + name + " a goddamn cookie*";
+  if(good == true) {
+    cookieType = "well-deserved";
+  } else {
+    cookieType = "a goddamn"
+  }
+  botResponse = "*Giving " + name + " a "+ cookieType +" cookie*";
 
   options = {
     hostname: 'api.groupme.com',
