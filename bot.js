@@ -5,7 +5,7 @@ var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/give cookie$/;
+      botRegex = /^\/give cookie to /;
 
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
@@ -21,7 +21,7 @@ function respond() {
 function postMessage() {
   var botResponse, options, body, botReq;
 
-  botResponse = "Have a cookie!";
+  botResponse = "*Giving " + request.text + " a goddamn cookie*";
 
   options = {
     hostname: 'api.groupme.com',
