@@ -3,11 +3,11 @@ var cool = require('cool-ascii-faces');
 
 var botID = process.env.BOT_ID;
 
+good = false;
+
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex = /^\/give cookie to /;
-
-  good = false;
 
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
@@ -27,7 +27,7 @@ function postMessage(name, good) {
   if(good == true) {
     cookieType = "well-deserved";
   } else {
-    cookieType = "a goddamn"
+    cookieType = "goddamn"
   }
   botResponse = "*Giving " + name + " a "+ cookieType +" cookie*";
 
