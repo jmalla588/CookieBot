@@ -9,7 +9,7 @@ function respond() {
 
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
-    postMessage();
+    postMessage(request.test.substr(17));
     this.res.end();
   } else {
     console.log("don't care");
@@ -18,10 +18,10 @@ function respond() {
   }
 }
 
-function postMessage() {
+function postMessage(name) {
   var botResponse, options, body, botReq;
 
-  botResponse = "*Giving you a goddamn cookie*";
+  botResponse = "*Giving " + name + "a goddamn cookie*";
 
   options = {
     hostname: 'api.groupme.com',
