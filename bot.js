@@ -7,29 +7,47 @@ good = false;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/give cookie to /;
+      botRegex = /^\/give cookie to /, botRegexAlt = /^\/take cookie from /;
 
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
-    postMessage(request.text.substr(16), good);
+    postMessage(request.text.substr(16), good, true);
     this.res.end();
     good = !good;
-  } else {
+  }
+  if (request.text && botRegexAlt.test(request.text)) {
+    this.res.writeHead(200);
+    postMessage(request.text.substr(18), good, false);
+    this.res.end();
+    good = !good;
+  }
+  else {
     console.log("don't care");
     this.res.writeHead(200);
     this.res.end();
   }
 }
 
-function postMessage(name, good) {
+function postMessage(name, good, give) {
   var botResponse, options, body, botReq, cookieType;
 
-  if(good == true) {
-    cookieType = "well-deserved";
-  } else {
-    cookieType = "goddamn"
+  if (give == true) {
+    if(good == true) {
+      cookieType = "well-deserved";
+    } else {
+      cookieType = "goddamn"
+    }
+    botResponse = "*Giving " + name + " a "+ cookieType +" cookie*";
   }
-  botResponse = "*Giving " + name + " a "+ cookieType +" cookie*";
+  if (give == false) {
+    if(good==true) {
+      numCookies = "one of"
+    } else {
+      numCookies = "all of"
+    }
+    botResponse = "*Taking " + numCookies + " " + name + "'s cookies away'";
+  }
+
 
   options = {
     hostname: 'api.groupme.com',
